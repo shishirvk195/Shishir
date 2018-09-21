@@ -1,0 +1,292 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: ACME Body Shopping
+  description: Freelancer Allocation To Projects
+host: '3000'
+basePath: /acme
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/EDIFACT
+  - application/json
+paths:
+  '/assignments/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+    get:
+      operationId: GET-assignments
+      summary: Get assignments
+      tags:
+        - Assignments
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/assignments-input'
+    put:
+      operationId: PUT-assignments
+      summary: Update assignments
+      tags:
+        - Assignments
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/assignments-input'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/assignments-input'
+    delete:
+      operationId: DELETE-assignments
+      summary: Delete assignments
+      tags:
+        - Assignments
+      responses:
+        '204':
+          description: ''
+  /assignments:
+    get:
+      operationId: LIST-assignments
+      summary: List assignments
+      tags:
+        - Assignments
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/assignments-input'
+    post:
+      operationId: POST-assignments
+      summary: Create assignments
+      tags:
+        - Assignments
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/assignments-input'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/assignments-input'
+  '/freelancers/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+    get:
+      operationId: GET-freelancers
+      summary: Get freelancers
+      tags:
+        - Freelancers
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/freelancers-input'
+    put:
+      operationId: PUT-freelancers
+      summary: Update freelancers
+      tags:
+        - Freelancers
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/freelancers-input'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/freelancers-input'
+    delete:
+      operationId: DELETE-freelancers
+      summary: Delete freelancers
+      tags:
+        - Freelancers
+      responses:
+        '204':
+          description: ''
+  /freelancers:
+    get:
+      operationId: LIST-freelancers
+      summary: List freelancers
+      tags:
+        - Freelancers
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/freelancers-input'
+    post:
+      operationId: POST-freelancers
+      summary: Create freelancers
+      tags:
+        - Freelancers
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/freelancers-input'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/freelancers-input'
+  '/projects/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+    get:
+      operationId: GET-projects
+      summary: Get projects
+      tags:
+        - Projects
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/projects-input'
+    put:
+      operationId: PUT-projects
+      summary: Update projects
+      tags:
+        - Projects
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/projects-input'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/projects-input'
+    delete:
+      operationId: DELETE-projects
+      summary: Delete projects
+      tags:
+        - Projects
+      responses:
+        '204':
+          description: ''
+  /projects:
+    get:
+      operationId: LIST-projects
+      summary: List projects
+      tags:
+        - Projects
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/projects-input'
+    post:
+      operationId: POST-projects
+      summary: Create projects
+      tags:
+        - Projects
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/projects-input'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/projects-input'
+definitions:
+  freelancers:
+    title: freelancers
+    type: object
+    properties:
+      id:
+        type:
+          - string
+          - integer
+      name:
+        type: string
+      project_id:
+        type: string
+    required:
+      - id
+      - name
+  projects:
+    title: projects
+    type: object
+    properties:
+      id:
+        type:
+          - string
+          - integer
+      name:
+        type: string
+      start_date:
+        type: string
+      end_date:
+        type: string
+  projects-input:
+    title: projects Input
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      start_date:
+        type: string
+      end_date:
+        type: string
+      freelancer_id:
+        type: integer
+    required:
+      - id
+      - name
+  freelancers-input:
+    title: freelancers Input
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      project_id:
+        type: integer
+    required:
+      - id
+      - name
+  assignments-input:
+    title: assignments Input
+    type: object
+    properties:
+      project_id:
+        type: integer
+      freelancer_id:
+        type: integer
+      start_date:
+        type: string
+      end_date:
+        type: string
+    required:
+      - project_id
+      - freelancer_id
